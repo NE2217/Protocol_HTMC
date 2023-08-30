@@ -7,7 +7,7 @@
 //	return;
 //}
 
-void f_HDLC_pack(uint8_t* buf, uint16_t len)//Размер в байтах
+void f_HDLC_pack(uint8_t* buf, uint16_t len)//Р Р°Р·РјРµСЂ РІ Р±Р°Р№С‚Р°С…
 {
 	HDLC_pocket* p_pack = (HDLC_pocket*)buf;
 	if (len < sizeof(HDLC_pocket))

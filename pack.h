@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-void f_HDLC_pack(uint8_t* buf, uint16_t len);//запаковка пакета данных
-uint16_t f_HDLC_packData(void* data);//запаковка информационной части
+void f_HDLC_pack(uint8_t* buf, uint16_t len);//Р·Р°РїР°РєРѕРІРєР° РїР°РєРµС‚Р° РґР°РЅРЅС‹С…
+uint16_t f_HDLC_packData(void* data);//Р·Р°РїР°РєРѕРІРєР° РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅРѕР№ С‡Р°СЃС‚Рё
 
 #endif //PACK

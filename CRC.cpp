@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <iostream>
+#include <limits.h>
 #include "CRC.h"
 
 #include <assert.h>

@@ -29,7 +29,7 @@ uint16_t f_HDLC_packSize(uint8_t* data) {
 		}
 }
 
-uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len)//Размер в байтах
+uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len)//Р Р°Р·РјРµСЂ РІ Р±Р°Р№С‚Р°С…
  {
 	HDLC_get_pocket get_pack = { NULL };
 	uint8_t *data = NULL;
@@ -42,15 +42,15 @@ uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len)//Размер в байтах
 		/*
 		if (p_pack_1->control.win.type_1 & 1) {
 			if (p_pack_1->control.win.type_2 & 1) {
-				*inf_type = 1;//U-формат
+				*inf_type = 1;//U-С„РѕСЂРјР°С‚
 			}
 			else{
-				*inf_type = 2;//S-формат
+				*inf_type = 2;//S-С„РѕСЂРјР°С‚
 			}
 
 		}
 		else { 
-			*inf_type = 3;//I-формат
+			*inf_type = 3;//I-С„РѕСЂРјР°С‚
 		}
 		*/
 	}
@@ -69,16 +69,16 @@ uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len)//Размер в байтах
 	format form = { NULL };
 	form.point = svipe((uint8_t*)&get_pack.begin->format.point, 2);
 	/*
-	cout << "формат в посылке = " << (int)form.point << endl;
-	cout << "тип в посылке = " << (int)form.form.typ << endl;
-	cout << "S в посылке = " << (int)form.form.S << endl;
-	cout << "длинна в посылке = " << (int)form.form.size << endl;
-	cout << "длинна посчитана = " << (int)(f_HDLC_packSize(pack) - 2) << endl;
+	cout << "С„РѕСЂРјР°С‚ РІ РїРѕСЃС‹Р»РєРµ = " << (int)form.point << endl;
+	cout << "С‚РёРї РІ РїРѕСЃС‹Р»РєРµ = " << (int)form.form.typ << endl;
+	cout << "S РІ РїРѕСЃС‹Р»РєРµ = " << (int)form.form.S << endl;
+	cout << "РґР»РёРЅРЅР° РІ РїРѕСЃС‹Р»РєРµ = " << (int)form.form.size << endl;
+	cout << "РґР»РёРЅРЅР° РїРѕСЃС‡РёС‚Р°РЅР° = " << (int)(f_HDLC_packSize(pack) - 2) << endl;
 	*/
 	if (form.form.size == f_HDLC_packSize(pack) - 2) {
-		cout << "длинна совпала" << endl;
+		cout << "РґР»РёРЅРЅР° СЃРѕРІРїР°Р»Р°" << endl;
 	}
-	else{ cout << "длинна НЕ совпала" << endl; }
+	else{ cout << "РґР»РёРЅРЅР° РќР• СЃРѕРІРїР°Р»Р°" << endl; }
 
 	if ( get_pack.end->FCS == f_crc16(&pack[1], (f_HDLC_packSize(pack) - 4)) ){
 		
@@ -128,15 +128,15 @@ struct HDLC_data_P f_GetPower() {
 void f_HDLC_Print(struct HDLC_get_pocket* pack) {
 	uint16_t i = NULL;
 
-	cout << "флаг =		   " << (int)pack->begin->flag_open << endl;
-	cout << "адрес =		   " << (int)pack->begin->DA_SA[1] << endl;
-	cout << "управление =	   " << (int)pack->begin->control << endl;
-	cout << "информация" << endl;
+	cout << "С„Р»Р°Рі =		   " << (int)pack->begin->flag_open << endl;
+	cout << "Р°РґСЂРµСЃ =		   " << (int)pack->begin->DA_SA[1] << endl;
+	cout << "СѓРїСЂР°РІР»РµРЅРёРµ =	   " << (int)pack->begin->control << endl;
+	cout << "РёРЅС„РѕСЂРјР°С†РёСЏ" << endl;
 	for (uint16_t i = 0; i < ((f_HDLC_packSize(&(pack->begin->data)))-5); i++) {
 		cout << "	" << (int)i << "		 = " << (int) *(&(pack->begin->data) + i) << endl;
 	}
 	cout << "CRC =		   " << (int)pack->end->FCS << endl;
-	cout << "флаг =		   " << (int)pack->end->flag_close << endl << endl;
+	cout << "С„Р»Р°Рі =		   " << (int)pack->end->flag_close << endl << endl;
 
 }
 
