@@ -10,7 +10,7 @@ using namespace std;
 
 void* A[3];
 
-uint8_t pack_b[100], buf[100] = {NULL};
+uint8_t pack_b[100], buf[100] = {NULL}; // TODO NULL - это для указателей. Нужно {0}
 uint8_t TTT[] = {0xA0, 0x08, 0x02, 0x21, 0x21, 0x53 };
 uint8_t buf_test[] = {0x7E, 0xA0, 0x23, 0x00, 0x02, 0x44, 0xC9,
 0x61, 0x93, 0x44, 0x0B, 0x81, 0x80, 0x14, 0x05, 0x02,
@@ -52,7 +52,7 @@ uint16_t x;
 int main() {
 	setlocale(LC_ALL, "Russian");
 
-	f_HDLC_pack(buf, 100);
+	f_HDLC_pack(buf, sizeof(buf));
 
 	/*pack->data.point = pack->data.point + 100;
 	*pack->data.point = 10;
@@ -83,12 +83,12 @@ int main() {
 	//cout << "ТЕСТ CRC (0x0917,0x1709) = 0x" << hex << (int)CRC_16(PPPINITFCS16, TTT, 6) << dec << endl;
 
 	cout << "ТЕСТ УПАКОВКИ" << endl << "размер сообщения = " << (int)f_HDLC_packSize(buf) << endl;
-	ERROR_repack = f_HDLC_repack(buf, 100);
+	ERROR_repack = f_HDLC_repack(buf, sizeof(buf));
 	f_HDLC_RepackData();
 	cout << endl << endl;
 
 	cout << "ЗАПРОС 1" << endl << "размер сообщения = " << (int)f_HDLC_packSize(buf_test) << endl;
-	cout << "ERROR= " << (int)f_HDLC_repack(buf_test, 100) << endl;
+	cout << "ERROR= " << (int)f_HDLC_repack(buf_test, 100) << endl; // TODO длину указывай как sizeof(buf_test)
 	ERROR_repack=f_HDLC_repack(buf_test, 100);
 	f_HDLC_RepackData();
 	cout << endl << endl;

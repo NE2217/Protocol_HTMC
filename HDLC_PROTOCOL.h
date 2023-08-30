@@ -60,13 +60,13 @@
 #define SABME	0x6F	//режим длинного сбалансированного асинхронного ответа
 
 #pragma pack(push,1)
-
+// TODO это две структуры объявлены правильно, кроме битовых полей. Остальные нужно сделать также
 typedef struct {
 	uint8_t comand;
 	uint8_t S : 3;
 	uint8_t R : 3;
 	uint8_t P : 1;
-} control;
+} control; // TODO добавляй t_  t_control
 
 typedef struct {
 	uint8_t* point;
@@ -117,13 +117,13 @@ union HDLC_control_U {
 typedef union format{
 	uint16_t point;
 	struct {
-		uint16_t size : 11;
+		uint16_t size : 11; // TODO переделать все uint16_t в unsigned. Перепроверь все свои битовые поля
 		uint16_t S : 1;
 		uint16_t typ : 4;
 	}form;
 };
 
-
+// TODO pocket - карман, packet - пакет. Нужно все pocket переименовать
 typedef struct HDLC_pocket_begin{
 	uint8_t flag_open;
 	format format;
@@ -139,7 +139,7 @@ typedef struct HDLC_pocket_end {
 	uint8_t flag_close;
 };
 
-typedef struct HDLC_get_pocket {
+typedef struct HDLC_get_pocket { // TODO не вижу смысла в этой структуре данных. Указатели можно использовать отдельно
 	struct HDLC_pocket_begin *begin;
 	struct HDLC_pocket_end *end;
 };
