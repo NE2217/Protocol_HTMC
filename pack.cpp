@@ -15,9 +15,7 @@ void f_HDLC_pack(uint8_t* buf, uint16_t len)//Размер в байтах
 
 	p_pack->flag_open = FLAG;
 	p_pack->addr = 21;
-	p_pack->control.win.type_1 = 1;
-	p_pack->control.win.type_2 = 1;
-	p_pack->control.win.reserve = 12;
+	p_pack->control = 112;
 
 	for (uint8_t i = 0; i < 10; i++) {
 		p_pack->data[i] = (i + 1) * 5;

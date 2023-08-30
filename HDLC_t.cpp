@@ -11,6 +11,7 @@ using namespace std;
 void* A[3];
 
 uint8_t pack_b[100], buf[100] = {NULL};
+uint8_t TTT[] = {0xA0, 0x08, 0x02, 0x21, 0x21, 0x53 };
 uint8_t buf_test[] = {0x7E, 0xA0, 0x23, 0x00, 0x02, 0x44, 0xC9,
 0x61, 0x93, 0x44, 0x0B, 0x81, 0x80, 0x14, 0x05, 0x02,
 0x04, 0x00, 0x06, 0x02, 0x04, 0x00, 0x07, 0x04, 0x00, 0x00, 0x00, 0x01, 0x08,
@@ -43,7 +44,11 @@ struct HDLC_data_I data_I_repack;
 struct HDLC_data_P data_P_repack;
 uint16_t len_U, len_I, len_P=NULL;
 
-uint8_t x, o;
+uint8_t y;
+uint16_t x;
+
+#include <limits.h>
+
 
 void main() {
 	setlocale(LC_ALL, "Russian");
@@ -62,10 +67,21 @@ void main() {
 	data_U_pack.param = 'U';
 	data_U_pack.value = 220;
 
-	x = 1;
-	o = 2;
+	x = 0x1709;
+	y = 0;
 	
-	cout << "ÒÅÑÒ CRC = 0x" << hex << (int) pppfcs16(PPPINITFCS16, buf_test, f_HDLC_packSize(buf_test)-3) << dec << endl;
+	//for(x,y)
+
+
+
+		
+	// check last two bytes before the last 7E
+	//uint16_t expected = buf[size - 2];
+	//expected = (expected << 8) + buf[size - 3];
+	
+	//cout << "ÒÅÑÒ ÐÀÇÂÀÐÎÒÀ (0x917)= " << hex << (int) rotate(x,8) /*pppfcs16(0x8408, TTT, 7 )*/ << dec << endl;
+
+	//cout << "ÒÅÑÒ CRC (0x0917,0x1709) = 0x" << hex << (int)CRC_16(PPPINITFCS16, TTT, 6) << dec << endl;
 
 	cout << "ÒÅÑÒ ÓÏÀÊÎÂÊÈ" << endl << "ðàçìåð ñîîáùåíèÿ = " << (int)f_HDLC_packSize(buf) << endl;
 	ERROR_repack = f_HDLC_repack(buf, 100);
@@ -73,21 +89,25 @@ void main() {
 	cout << endl << endl;
 
 	cout << "ÇÀÏÐÎÑ 1" << endl << "ðàçìåð ñîîáùåíèÿ = " << (int)f_HDLC_packSize(buf_test) << endl;
+	cout << "ERROR= " << (int)f_HDLC_repack(buf_test, 100) << endl;
 	ERROR_repack=f_HDLC_repack(buf_test, 100);
 	f_HDLC_RepackData();
 	cout << endl << endl;
 
 	cout << "ÎÒÂÅÒ 1" << endl << "ðàçìåð ñîîáùåíèÿ = " << (int)f_HDLC_packSize(buf_test_1) << endl;
+	cout << "ERROR= " << (int)f_HDLC_repack(buf_test_1, 100) << endl;
 	ERROR_repack = f_HDLC_repack(buf_test_1, 100);
 	f_HDLC_RepackData();
 	cout << endl << endl;
 	
 	cout << "ÇÀÏÐÎÑ 2" << endl << "ðàçìåð ñîîáùåíèÿ = " << (int)f_HDLC_packSize(buf_test_2) << endl;
+	cout << "ERROR= " << (int)f_HDLC_repack(buf_test_2, 100) << endl;
 	ERROR_repack = f_HDLC_repack(buf_test_2, 100);
 	f_HDLC_RepackData();
 	cout << endl << endl;
 
 	cout << "ÎÒÂÅÒ 2" << endl << "ðàçìåð ñîîáùåíèÿ = " << (int)f_HDLC_packSize(buf_test_3) << endl;
+	cout << "ERROR= " << (int)f_HDLC_repack(buf_test_3, 100) << endl;
 	ERROR_repack = f_HDLC_repack(buf_test_3, 100);
 	f_HDLC_RepackData();
 	cout << endl << endl;

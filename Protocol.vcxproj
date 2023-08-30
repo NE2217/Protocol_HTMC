@@ -131,11 +131,13 @@
     <ClCompile Include="repack.cpp" />
     <ClCompile Include="pack.cpp" />
     <ClCompile Include="CRC.cpp" />
+    <ClCompile Include="HDLC_PROTOCOL.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CRC.h" />
     <ClInclude Include="HDLC_PROTOCOL.h" />
+    <ClInclude Include="Help_functions.h" />
     <ClInclude Include="pack.h" />
     <ClInclude Include="repack.h" />
   </ItemGroup>

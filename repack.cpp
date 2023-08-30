@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "HDLC_PROTOCOL.h"
 #include "CRC.h"
+#include "Help_functions.h"
 
 #include <iostream>
 using namespace std;
@@ -58,19 +59,38 @@ uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len)//Размер в байтах
 		return 1;
 	}
 
+	if (get_pack.begin->HCS != f_crc16(&pack[1], 8)) {
+		//cout << hex << (int)get_pack.begin->HCS << " = CRC = " << (int)f_crc16(&pack[1], 8) << dec << endl;
+		return 2;
+	}
+
 	get_pack.end = (HDLC_pocket_end*)(&pack[f_HDLC_packSize(pack) - 3]);
 	
-	//if (get_pack.end->CRC == f_crc16(((uint8_t*)(pack + 3)), f_HDLC_packSize(pack) - 6)) {
+	format form = { NULL };
+	form.point = svipe((uint8_t*)&get_pack.begin->format.point, 2);
+	/*
+	cout << "формат в посылке = " << (int)form.point << endl;
+	cout << "тип в посылке = " << (int)form.form.typ << endl;
+	cout << "S в посылке = " << (int)form.form.S << endl;
+	cout << "длинна в посылке = " << (int)form.form.size << endl;
+	cout << "длинна посчитана = " << (int)(f_HDLC_packSize(pack) - 2) << endl;
+	*/
+	if (form.form.size == f_HDLC_packSize(pack) - 2) {
+		cout << "длинна совпала" << endl;
+	}
+	else{ cout << "длинна НЕ совпала" << endl; }
+
+	if ( get_pack.end->FCS == f_crc16(&pack[1], (f_HDLC_packSize(pack) - 4)) ){
 		
 		if (get_pack.end-> flag_close != FLAG)
 		{
 			return 3;
 		}
-	//}
-	/*/else {
+	}
+	else {
 	
-		return 2;
-	}*/
+		return 4;
+	}
 		for (uint8_t i = 0; i < (f_HDLC_packSize(pack) - 6); i++) {
 			dataBuf[i] = *(&get_pack.begin->data + i);
 		}
@@ -109,15 +129,13 @@ void f_HDLC_Print(struct HDLC_get_pocket* pack) {
 	uint16_t i = NULL;
 
 	cout << "флаг =		   " << (int)pack->begin->flag_open << endl;
-	cout << "адрес =		   " << (int)pack->begin->addr << endl;
-	cout << "управление =	   " << (int)pack->begin->control.point << endl;
-	cout << "	1 позиция= " << (int)pack->begin->control.win.type_1 << endl;
-	cout << "	2 позиция= " << (int)pack->begin->control.win.type_2 << endl;
+	cout << "адрес =		   " << (int)pack->begin->DA_SA[1] << endl;
+	cout << "управление =	   " << (int)pack->begin->control << endl;
 	cout << "информация" << endl;
 	for (uint16_t i = 0; i < ((f_HDLC_packSize(&(pack->begin->data)))-5); i++) {
 		cout << "	" << (int)i << "		 = " << (int) *(&(pack->begin->data) + i) << endl;
 	}
-	cout << "CRC =		   " << (int)pack->end->CRC << endl;
+	cout << "CRC =		   " << (int)pack->end->FCS << endl;
 	cout << "флаг =		   " << (int)pack->end->flag_close << endl << endl;
 
 }

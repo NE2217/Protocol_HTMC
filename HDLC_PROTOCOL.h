@@ -7,14 +7,72 @@
 #include "CRC.h"
 
 #define FLAG		0x7e
+//команды в окне формат	
+	
+//Разряды байта управляющего поля	Команда / ответ					Формат
+//1	 2	3	4	5	6	7	8		Тип кадра
+//0	   N(S)	   P/F	   N(R)			-								I   информационный
+//1	 0	0	0  P/F	   N(R)		RR - готов к приему					S	супервизорный
+//1	 0	1	0  P/F	   N(R)		RNR - не готов к приему
+//1	 0	0	1  P/F	   N(R)		REJ - отказ в приеме				
+//1	 0	1	1  P/F	   N(R)		SREJ - выборочный отказ в приеме
+//1	 1	0	0  P/F	0	0	0	UI - короткая информация			U	ненумерованный, управляющий
+//1	 1	0	0	Р	0	0	1	SNRM - режим нормального ответа
+//1	 1	0	0	Р	0	1	0	DISC - разъединить
+//1	 1	0	0	Р	1	0	0	UP - ненумерованный опрос
+//1	 1	0	0	F	1	1	0	UA - подтверждение
+//1	 1	0	0  P/F	1	1	1	TEST - проверка
+//1	 1	1	0  P/F	0	0	0	SIM - режим инициативного выхода
+//1	 1	1	0	F	0	0	1	FRMR - неприем кадра
+//1	 1	1	1	F	0	0	0	DM - "Разъединено"
+//1	 1 	1	1	Р	0	0	1	RSET - сброс счетчика принятых кадров
+//1	 1	1	1	Р	0	1	0	SARME - режим длинного асинхронного ответа
+//1	 1	1	1	Р	0	1	1	SNRME - режим длинного нормального ответа
+//1	 1	1	1	Р	1	0	0	SABM - асинхронный сбалансированный режим
+//1	 1	1	1  P/F	1	0	1	XID - идентификация станции
+//1	 1	1	1	Р	1	1	0	SABME - режим длинного сбалансированного асинхронного ответа
+
+
+//											
+//Маски команд (неопределенные биты нулевые)       Команда / ответ							 Формат                        
+#define Inf		0x0	//										I   информационный
+
+#define RR		0x1	//готов к приему						S	супервизорный
+#define RNR		0x5	//не готов к приему
+#define REJ		0x9	//отказ в приеме				
+#define SREJ	0xD	//выборочный отказ в приеме
+
+#define UI		0x3	//короткая информация					U	ненумерованный, управляющий
+#define SNRM	0x83	//режим нормального ответа
+#define DISC	0x43	//разъединить
+#define UP		0x23	//ненумерованный опрос
+#define UA		0x63	//подтверждение
+#define TEST	0xC7	//проверка
+#define SIM 	0x7	//режим инициативного выхода
+#define FRMR	0x87	//неприем кадра
+#define DM		0xF	//"Разъединено"
+#define RSET	0x8F	//сброс счетчика принятых кадров
+#define CF		0x4F	//режим длинного асинхронного ответа
+#define SNRME	0xCF	//режим длинного нормального ответа
+#define SABM	0x2F	//асинхронный сбалансированный режим
+#define XID		0xAF	//идентификация станции
+#define SABME	0x6F	//режим длинного сбалансированного асинхронного ответа
 
 #pragma pack(push,1)
+
+typedef struct {
+	uint8_t comand;
+	uint8_t S : 3;
+	uint8_t R : 3;
+	uint8_t P : 1;
+} control;
 
 typedef struct {
 	uint8_t* point;
 	uint8_t len;
 } HDLC_data;
 
+/*
 union HDLC_control {
 	uint8_t point;
 	struct {
@@ -23,6 +81,7 @@ union HDLC_control {
 		uint8_t type_1 : 1;
 	}win;
 };
+*/
 
 union HDLC_control_I {
 	unsigned char point;
@@ -35,35 +94,47 @@ union HDLC_control_I {
 };
 
 union HDLC_control_S {
-	unsigned char point;
+	uint8_t point;
 	struct {
-		unsigned char received_shot : 3;
-		unsigned char tell_bit : 1;
-		unsigned char s_code : 2;
-		unsigned char format : 2;
+		unsigned received_shot : 3;
+		unsigned tell_bit : 1;
+		unsigned s_code : 2;
+		unsigned format : 2;
 	}win;
 };
 
 union HDLC_control_U {
 	uint8_t point;
 	struct {
-		uint8_t u_code_second : 3;
-		uint8_t tell_bit : 1;
-		uint8_t u_code_first : 2;
-		uint8_t format : 2;
+		unsigned u_code_second : 3;
+		unsigned tell_bit : 1;
+		unsigned u_code_first : 2;
+		unsigned format : 2;
 	}win;
 };
 
-typedef struct HDLC_pocket_begin {
-	uint8_t flag_open;
-	uint8_t addr;
-	union HDLC_control control;
-	uint8_t data;
-	//struct HDLC_data data;
+typedef union format{
+	uint16_t point;
+	struct {
+		uint16_t size : 11;
+		uint16_t S : 1;
+		uint16_t typ : 4;
+	}form;
 };
 
+
+typedef struct HDLC_pocket_begin{
+	uint8_t flag_open;
+	format format;
+	uint8_t DA_SA[5];//адрес назначения_источника
+	uint8_t control;
+	uint16_t HCS;//контрольная сумма загаловка
+	uint8_t data;
+};
+
+
 typedef struct HDLC_pocket_end {
-	uint16_t CRC;
+	uint16_t FCS;
 	uint8_t flag_close;
 };
 
@@ -75,7 +146,7 @@ typedef struct HDLC_get_pocket {
 typedef struct HDLC_pocket {
 	uint8_t flag_open;
 	uint8_t addr;
-	union HDLC_control control;
+	uint8_t control;
 	uint8_t data[10];
 	uint16_t CRC;
 	uint8_t flag_close;
