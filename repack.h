@@ -2,6 +2,8 @@
 #ifndef REPACK
 #define REPACK
 
+#include <stdint.h>
+
 uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len);
 //void f_HDLC_repackData(uint8_t* buf, uint16_t len);
 struct HDLC_data_U f_GetVoltage();

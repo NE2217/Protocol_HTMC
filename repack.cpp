@@ -27,6 +27,7 @@ uint16_t f_HDLC_packSize(uint8_t* data) {
 			}
 			return len+1; 
 		}
+		return 0;
 }
 
 uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len)//Размер в байтах
