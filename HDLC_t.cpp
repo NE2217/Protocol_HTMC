@@ -49,8 +49,7 @@ uint16_t x;
 
 #include <limits.h>
 
-
-void main() {
+int main() {
 	setlocale(LC_ALL, "Russian");
 
 	f_HDLC_pack(buf, 100);

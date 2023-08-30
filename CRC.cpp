@@ -16,7 +16,7 @@ uint16_t f_crc16(uint8_t* data, uint16_t len) {
 	fcs ^= 0xffff;
 	if(rot)
 		fcs = (fcs << 8) |
-			(fcs >> ((sizeof(fcs) * CHAR_BIT - 8) %
-				(sizeof(fcs) * CHAR_BIT)));
+			(fcs >> ((sizeof(fcs) * 8 - 8) %
+				(sizeof(fcs) * 8)));
 	return fcs;
 }

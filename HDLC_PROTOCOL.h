@@ -2,6 +2,7 @@
 #ifndef HDLC_PROTOCOL_H
 #define HDLC_PROTOCOL_H
 
+#include <stdint.h>
 #include "pack.h"
 #include "repack.h"
 #include "CRC.h"
