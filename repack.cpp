@@ -14,13 +14,14 @@ struct HDLC_data_P Power = { NULL };
 uint8_t dataBuf[100] = { NULL };
 uint16_t dataLen = { NULL };
 
-uint16_t f_HDLC_packSize(uint8_t* data) {	
+// TODO в название нужно делать соответствующее назначению функции CalcPackSize например
+uint16_t f_HDLC_packSize(uint8_t* data) { // рассчитывает длину входящего/исходящего сообщения
 	uint16_t len = 1;
 	uint16_t i = 1;
 
 		if (*data == FLAG) {
 
-			while ( (data[i] != FLAG) && i<1000)
+			while ( (data[i] != FLAG) && (i < 1000) ) // TODO в функцию нужно передаватьдлину данных.Тогда ее можно вставить вместо 1000
 			{
 				len++;
 				i++;
@@ -29,14 +30,14 @@ uint16_t f_HDLC_packSize(uint8_t* data) {
 		}
 		return 0;
 }
-
-uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len)// len-Размер в байтах
+// TODO repack - перепаковать, больше подойдёт unpack - распаковать
+uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len) // Размер в байтах
  {
 	HDLC_get_pocket get_pack = { NULL };
-	uint8_t *data = NULL;
+	uint8_t *data = NULL; // TODO не используется. нужно убрать
 	//HDLC_pocket_begin* p_pack_1 = (HDLC_pocket_begin*)pack;
 
-	get_pack.begin = (HDLC_pocket_begin*)pack;
+	get_pack.begin = (HDLC_pocket_begin*)pack; // TODO можно было сразу объявить указатель типа HDLC_pocket_begin без HDLC_get_pocket
 
 	if (get_pack.begin->flag_open == FLAG) {
 	
@@ -60,14 +61,14 @@ uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len)// len-Размер в бай�
 		return 1;
 	}
 
-	if (get_pack.begin->HCS != f_crc16(&pack[1], 8)) {
+	if (get_pack.begin->HCS != f_crc16(&pack[1], 8)) { // TODO 8 нужн задефайнит, а то непонятно что это за 8
 		//cout << hex << (int)get_pack.begin->HCS << " = CRC = " << (int)f_crc16(&pack[1], 8) << dec << endl;
 		return 2;
 	}
 
 	get_pack.end = (HDLC_pocket_end*)(&pack[f_HDLC_packSize(pack) - 3]);
 	
-	format form = { NULL };
+	format form = { NULL }; // TODO не нужно делать  = { NULL }. И объяви указатель которуму укажешь на адрес
 	form.point = svipe((uint8_t*)&get_pack.begin->format.point, 2);
 	/*
 	cout << "формат в посылке = " << (int)form.point << endl;
@@ -126,7 +127,7 @@ struct HDLC_data_P f_GetPower() {
 	return Power;
 }
 
-void f_HDLC_Print(struct HDLC_get_pocket* pack) {
+void f_HDLC_Print(struct HDLC_get_pocket* pack) { // TODO print чего? нужно дать более подробное имя
 	uint16_t i = NULL;
 
 	cout << "флаг =		   " << (int)pack->begin->flag_open << endl;
@@ -141,10 +142,10 @@ void f_HDLC_Print(struct HDLC_get_pocket* pack) {
 
 }
 
-void f_HDLC_RepackData(void) {
+void f_HDLC_RepackData(void) { // TODO название не совпадает с назначением функции
 
 	for (uint16_t i = 0; i < dataLen; i++) {
 		cout << "0x" << hex << (int)dataBuf[i] << dec << ", ";
-		if((i+1)%10==0){ cout << endl; }
+		if((i+1)%10==0){ cout << endl; } // TODO разделяй пробелами для удобства чтения ( ((i+1) % 10) == 0 ) и скобочки ставь, а то компилятор сам может решить какое действие первым сделать
 	}
 }
