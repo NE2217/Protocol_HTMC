@@ -6,6 +6,8 @@
 #include <iostream>
 #include "HDLC_PROTOCOL.h"
 
+
+
 using namespace std;
 
 void* A[3];
@@ -47,10 +49,9 @@ uint16_t len_U, len_I, len_P=NULL;
 uint8_t y;
 uint16_t x;
 
-#include <limits.h>
-
 int main() {
-	setlocale(LC_ALL, "Russian");
+	//SetConsoleOutputCP(CP_UTF8);
+	setlocale(LC_ALL, "ru_RU.utf8");
 
 	f_HDLC_pack(buf, 100);
 
@@ -78,34 +79,34 @@ int main() {
 	//uint16_t expected = buf[size - 2];
 	//expected = (expected << 8) + buf[size - 3];
 	
-	//cout << "Ð¢Ð•Ð¡Ð¢ Ð ÐÐ—Ð’ÐÐ ÐžÐ¢Ð (0x917)= " << hex << (int) rotate(x,8) /*pppfcs16(0x8408, TTT, 7 )*/ << dec << endl;
+	//cout << "ÒÅÑÒ ÐÀÇÂÀÐÎÒÀ (0x917)= " << hex << (int) rotate(x,8) /*pppfcs16(0x8408, TTT, 7 )*/ << dec << endl;
 
-	//cout << "Ð¢Ð•Ð¡Ð¢ CRC (0x0917,0x1709) = 0x" << hex << (int)CRC_16(PPPINITFCS16, TTT, 6) << dec << endl;
+	//cout << "ÒÅÑÒ CRC (0x0917,0x1709) = 0x" << hex << (int)CRC_16(PPPINITFCS16, TTT, 6) << dec << endl;
 
-	cout << "Ð¢Ð•Ð¡Ð¢ Ð£ÐŸÐÐšÐžÐ’ÐšÐ˜" << endl << "Ñ€Ð°Ð·Ð¼ÐµÑ€ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ = " << (int)f_HDLC_packSize(buf) << endl;
+	cout << "ÒÅÑÒ ÓÏÀÊÎÂÊÈ" << endl << "ðàçìåð ñîîáùåíèÿ = " << (int)f_HDLC_packSize(buf) << endl;
 	ERROR_repack = f_HDLC_repack(buf, 100);
 	f_HDLC_RepackData();
 	cout << endl << endl;
 
-	cout << "Ð—ÐÐŸÐ ÐžÐ¡ 1" << endl << "Ñ€Ð°Ð·Ð¼ÐµÑ€ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ = " << (int)f_HDLC_packSize(buf_test) << endl;
+	cout << "ÇÀÏÐÎÑ 1" << endl << "ðàçìåð ñîîáùåíèÿ = " << (int)f_HDLC_packSize(buf_test) << endl;
 	cout << "ERROR= " << (int)f_HDLC_repack(buf_test, 100) << endl;
 	ERROR_repack=f_HDLC_repack(buf_test, 100);
 	f_HDLC_RepackData();
 	cout << endl << endl;
 
-	cout << "ÐžÐ¢Ð’Ð•Ð¢ 1" << endl << "Ñ€Ð°Ð·Ð¼ÐµÑ€ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ = " << (int)f_HDLC_packSize(buf_test_1) << endl;
+	cout << "ÎÒÂÅÒ 1" << endl << "ðàçìåð ñîîáùåíèÿ = " << (int)f_HDLC_packSize(buf_test_1) << endl;
 	cout << "ERROR= " << (int)f_HDLC_repack(buf_test_1, 100) << endl;
 	ERROR_repack = f_HDLC_repack(buf_test_1, 100);
 	f_HDLC_RepackData();
 	cout << endl << endl;
 	
-	cout << "Ð—ÐÐŸÐ ÐžÐ¡ 2" << endl << "Ñ€Ð°Ð·Ð¼ÐµÑ€ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ = " << (int)f_HDLC_packSize(buf_test_2) << endl;
+	cout << "ÇÀÏÐÎÑ 2" << endl << "ðàçìåð ñîîáùåíèÿ = " << (int)f_HDLC_packSize(buf_test_2) << endl;
 	cout << "ERROR= " << (int)f_HDLC_repack(buf_test_2, 100) << endl;
 	ERROR_repack = f_HDLC_repack(buf_test_2, 100);
 	f_HDLC_RepackData();
 	cout << endl << endl;
 
-	cout << "ÐžÐ¢Ð’Ð•Ð¢ 2" << endl << "Ñ€Ð°Ð·Ð¼ÐµÑ€ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ = " << (int)f_HDLC_packSize(buf_test_3) << endl;
+	cout << "ÎÒÂÅÒ 2" << endl << "ðàçìåð ñîîáùåíèÿ = " << (int)f_HDLC_packSize(buf_test_3) << endl;
 	cout << "ERROR= " << (int)f_HDLC_repack(buf_test_3, 100) << endl;
 	ERROR_repack = f_HDLC_repack(buf_test_3, 100);
 	f_HDLC_RepackData();
@@ -115,11 +116,11 @@ int main() {
 
 /*
 	len_U=f_HDLC_packData(&data_U_pack);
-	cout << "Ð´Ð»Ð¸Ð½Ð½Ð° U =      " << (int)len_U << endl;
+	cout << "äëèííà U =      " << (int)len_U << endl;
 	len_I=f_HDLC_packData(&data_I_pack);
-	cout << "Ð´Ð»Ð¸Ð½Ð½Ð° I =      " << (int)len_I << endl;
+	cout << "äëèííà I =      " << (int)len_I << endl;
 	len_P=f_HDLC_packData(&data_P_pack);
-	cout << "Ð´Ð»Ð¸Ð½Ð½Ð° P =      " << (int)len_P << endl;
+	cout << "äëèííà P =      " << (int)len_P << endl;
 
 	data_U_repack = { NULL };
 	data_I_repack = { NULL };
@@ -139,40 +140,40 @@ int main() {
 
 	if ((data_U_pack.param == data_U_repack.param) &&
 		(data_U_pack.value == data_U_repack.value)) {
-		cout << "ÐÐ°Ð¿Ñ€ÑÐ¶ÐµÐ½Ð¸Ðµ ÑÐ¾Ð²Ð¿Ð°Ð»Ð¾" << endl;
+		cout << "Íàïðÿæåíèå ñîâïàëî" << endl;
 	}
-	else { cout << "ÐÐ°Ð¿Ñ€ÑÐ¶ÐµÐ½Ð¸Ðµ ÐÐ•ÑÐ¾Ð²Ð¿Ð°Ð»Ð¾" << endl; }
+	else { cout << "Íàïðÿæåíèå ÍÅñîâïàëî" << endl; }
 
 	if ((data_I_pack.param == data_I_repack.param) &&
 		(data_I_pack.value == data_I_repack.value)) {
-		cout << "Ð¢Ð¾Ðº ÑÐ¾Ð²Ð¿Ð°Ð»" << endl;
+		cout << "Òîê ñîâïàë" << endl;
 	}
-	else { cout << "Ð¢Ð¾Ðº ÐÐ•ÑÐ¾Ð²Ð¿Ð°Ð»" << endl; }
+	else { cout << "Òîê ÍÅñîâïàë" << endl; }
 
 	if ((data_P_pack.param == data_P_repack.param) &&
 		(data_P_pack.value == data_P_repack.value) &&
 		(data_P_pack.tupe == data_P_repack.tupe)) {
-		cout << "ÐœÐ¾Ñ‰Ð½Ð¾ÑÑ‚ÑŒ ÑÐ¾Ð²Ð¿Ð°Ð»Ð°" << endl;
+		cout << "Ìîùíîñòü ñîâïàëà" << endl;
 	}
-	else { cout << "ÐœÐ¾Ñ‰Ð½Ð¾ÑÑ‚ÑŒ ÐÐ•ÑÐ¾Ð²Ð¿Ð°Ð»Ð°" << endl; }
+	else { cout << "Ìîùíîñòü ÍÅñîâïàëà" << endl; }
 
-	//cout << endl << "Ð¢ÐµÑÑ‚Ð¾Ð²Ð°Ñ ÑÑ‚Ñ€Ð¾ÐºÐ° " <<sizeof(struct HDLC_data_U)<< endl;
+	//cout << endl << "Òåñòîâàÿ ñòðîêà " <<sizeof(struct HDLC_data_U)<< endl;
 
-		//7E -Ñ„Ð»Ð°Ð³
-		//A0 -Ð°Ð´Ñ€ÐµÑ
-		//23 -ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»ÑŒ
+		//7E -ôëàã
+		//A0 -àäðåñ
+		//23 -êîíòðîëü
 		//00 02 00 21 61 93 7C A0 81 80 14 05 02           
 		//04 00 06 02 04 00 07 04 00 00 00 01 08 04 00 00
-		//00 01 -Ð˜Ð½Ñ„Ð¾
+		//00 01 -Èíôî
 		//72 E3 -CRC
-		//7E -Ñ„Ð»Ð°Ð³
+		//7E -ôëàã
 
-		//7E -Ñ„Ð»Ð°Ð³
-		//A0 -Ð°Ð´Ñ€ÐµÑ
-		//0A -ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»ÑŒ
+		//7E -ôëàã
+		//A0 -àäðåñ
+		//0A -êîíòðîëü
 		//00 02 00 21 61 53 CA
 		//44 -CRC
-		//7E -Ñ„Ð»Ð°Ð³
+		//7E -ôëàã
 */
 	return 0;
 }

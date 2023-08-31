@@ -30,7 +30,7 @@ uint16_t f_HDLC_packSize(uint8_t* data) {
 		return 0;
 }
 
-uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len)//Размер в байтах
+uint8_t f_HDLC_repack(uint8_t* pack, uint16_t len)// len-Размер в байтах
  {
 	HDLC_get_pocket get_pack = { NULL };
 	uint8_t *data = NULL;
