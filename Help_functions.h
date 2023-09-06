@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _HELP_
+#define _HELP_
 
 #include <stdlib.h>
 #include <stdint.h>
@@ -6,10 +7,9 @@
 
 #include <assert.h>
 
-uint16_t svipe(uint8_t* buf, uint16_t len) { // TODO swap - менять, swipe - махать
-    uint16_t rev = NULL;
-    for (int i = 0; i < 2; i++) {
-        rev = (rev << 8) + buf[i];
-    };
-    return rev;
-}
+uint16_t swap(uint8_t* buf, uint16_t len);  // TODO swap - менять, swipe - махать
+
+
+bool ComparringArrays(void* a, void* b);
+
+#endif // _HELP_

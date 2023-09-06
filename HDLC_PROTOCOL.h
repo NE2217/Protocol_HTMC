@@ -4,10 +4,12 @@
 
 #include <stdint.h>
 #include "pack.h"
-#include "repack.h"
+#include "unpack.h"
 #include "CRC.h"
+#include "LLC.h"
 
 #define FLAG		0x7e
+#define HEADER_LEN	8 //байт, длинна заголовка
 //команды в окне формат	
 	
 //Разряды байта управляющего поля	Команда / ответ					Формат
@@ -38,20 +40,20 @@
 //Маски команд (неопределенные биты нулевые)       Команда / ответ							 Формат                        
 #define Inf		0x0	//										I   информационный
 
-#define RR		0x1	//готов к приему						S	супервизорный
-#define RNR		0x5	//не готов к приему
-#define REJ		0x9	//отказ в приеме				
-#define SREJ	0xD	//выборочный отказ в приеме
+#define RR		0x1		//готов к приему					S	супервизорный
+#define RNR		0x5		//не готов к приему
+#define REJ		0x9		//отказ в приеме				
+#define SREJ	0xD		//выборочный отказ в приеме
 
-#define UI		0x3	//короткая информация					U	ненумерованный, управляющий
+#define UI		0x3		//короткая информация				U	ненумерованный, управляющий
 #define SNRM	0x83	//режим нормального ответа
 #define DISC	0x43	//разъединить
 #define UP		0x23	//ненумерованный опрос
 #define UA		0x63	//подтверждение
 #define TEST	0xC7	//проверка
-#define SIM 	0x7	//режим инициативного выхода
+#define SIM 	0x7		//режим инициативного выхода
 #define FRMR	0x87	//неприем кадра
-#define DM		0xF	//"Разъединено"
+#define DM		0xF		//"Разъединено"
 #define RSET	0x8F	//сброс счетчика принятых кадров
 #define CF		0x4F	//режим длинного асинхронного ответа
 #define SNRME	0xCF	//режим длинного нормального ответа
@@ -63,15 +65,15 @@
 // TODO это две структуры объявлены правильно, кроме битовых полей. Остальные нужно сделать также
 typedef struct {
 	uint8_t comand;
-	uint8_t S : 3;
-	uint8_t R : 3;
-	uint8_t P : 1;
-} control; // TODO добавляй t_  t_control
+	unsigned S : 3;
+	unsigned R : 3;
+	unsigned P : 1;
+} t_control; // TODO добавляй t_  t_control
 
 typedef struct {
 	uint8_t* point;
 	uint8_t len;
-} HDLC_data;
+} t_HDLC_data;
 
 /*
 union HDLC_control {
@@ -84,7 +86,7 @@ union HDLC_control {
 };
 */
 
-union HDLC_control_I {
+union {
 	unsigned char point;
 	struct {
 		unsigned char received_shot : 3;
@@ -92,9 +94,9 @@ union HDLC_control_I {
 		unsigned char sent_shot : 3;
 		unsigned char format : 1;
 	}win;
-};
+}t_HDLC_control_I;
 
-union HDLC_control_S {
+union  {
 	uint8_t point;
 	struct {
 		unsigned received_shot : 3;
@@ -102,9 +104,9 @@ union HDLC_control_S {
 		unsigned s_code : 2;
 		unsigned format : 2;
 	}win;
-};
+}t_HDLC_control_S;
 
-union HDLC_control_U {
+union  {
 	uint8_t point;
 	struct {
 		unsigned u_code_second : 3;
@@ -112,39 +114,39 @@ union HDLC_control_U {
 		unsigned u_code_first : 2;
 		unsigned format : 2;
 	}win;
-};
+}t_HDLC_control_U;
 
-typedef union format{
+typedef union {
 	uint16_t point;
 	struct {
-		uint16_t size : 11; // TODO переделать все uint16_t в unsigned. Перепроверь все свои битовые поля
-		uint16_t S : 1;
-		uint16_t typ : 4;
+		unsigned size : 11; // TODO переделать все uint16_t в unsigned. Перепроверь все свои битовые поля
+		unsigned S : 1;
+		unsigned typ : 4;
 	}form;
-};
+}t_format;
 
 // TODO pocket - карман, packet - пакет. Нужно все pocket переименовать
-typedef struct HDLC_pocket_begin{
+typedef struct {
 	uint8_t flag_open;
-	format format;
+	t_format format;
 	uint8_t DA_SA[5];//адрес назначения_источника
 	uint8_t control;
 	uint16_t HCS;//контрольная сумма загаловка
 	uint8_t data;
-};
+}t_HDLC_packet_begin;
 
 
-typedef struct HDLC_pocket_end {
+typedef struct  {
 	uint16_t FCS;
 	uint8_t flag_close;
-};
+}t_HDLC_pocket_end;
 
 typedef struct HDLC_get_pocket { // TODO не вижу смысла в этой структуре данных. Указатели можно использовать отдельно
-	struct HDLC_pocket_begin *begin;
-	struct HDLC_pocket_end *end;
+	t_HDLC_packet_begin *begin;
+	t_HDLC_pocket_end *end;
 };
 
-typedef struct HDLC_pocket {
+typedef struct t_HDLC_pocket {
 	uint8_t flag_open;
 	uint8_t addr;
 	uint8_t control;
@@ -153,17 +155,17 @@ typedef struct HDLC_pocket {
 	uint8_t flag_close;
 };
 
-typedef struct HDLC_data_U {
+typedef struct t_HDLC_data_U {
 	uint8_t  param; //U,I,P
 	uint16_t  value;
 };
 
-typedef struct HDLC_data_I {
+typedef struct t_HDLC_data_I {
 	uint8_t param; //U,I,P
 	uint8_t value;
 };
 
-typedef struct HDLC_data_P {
+typedef struct t_HDLC_data_P {
 	uint8_t param; //U,I,P
 	uint8_t value;
 	uint8_t tupe; //P,Q,S

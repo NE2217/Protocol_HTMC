@@ -128,18 +128,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HDLC_t.cpp" />
-    <ClCompile Include="repack.cpp" />
+    <ClCompile Include="Help_functions.cpp" />
+    <ClCompile Include="LLC_unpack.cpp" />
+    <ClCompile Include="unpack.cpp" />
     <ClCompile Include="pack.cpp" />
     <ClCompile Include="CRC.cpp" />
     <ClCompile Include="HDLC_PROTOCOL.cpp" />
-    <ClCompile Include="Test.cpp" />
+    <ClCompile Include="AUTHORIZATION.cpp" />
+    <ClCompile Include="SerialPort.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AUTHORIZATION.h" />
+    <ClInclude Include="LLC.h" />
+    <ClInclude Include="LLC_pack.h" />
+    <ClInclude Include="LLC_unpack.h" />
+    <ClInclude Include="SerialPort.h" />
     <ClInclude Include="CRC.h" />
     <ClInclude Include="HDLC_PROTOCOL.h" />
     <ClInclude Include="Help_functions.h" />
     <ClInclude Include="pack.h" />
-    <ClInclude Include="repack.h" />
+    <ClInclude Include="unpack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

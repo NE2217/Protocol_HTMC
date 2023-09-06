@@ -1,4 +1,3 @@
-#pragma once
 #ifndef _CRC_
 #define _CRC_
 #include <stdint.h>

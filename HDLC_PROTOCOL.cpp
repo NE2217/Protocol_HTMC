@@ -7,8 +7,8 @@
 
 using namespace std;
 
-control format_read(uint8_t form) {
-	control control = {NULL};
+t_control format_read(uint8_t form) {
+	t_control control = {NULL};
 
 	if (form & 1 == 0) {
 		control.R = form >> 5;

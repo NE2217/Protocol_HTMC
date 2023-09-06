@@ -18,11 +18,8 @@
     <ClCompile Include="HDLC_t.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="repack.cpp">
+    <ClCompile Include="unpack.cpp">
       <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="Test.cpp">
-      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="pack.cpp">
       <Filter>Файлы ресурсов</Filter>
@@ -33,12 +30,24 @@
     <ClCompile Include="HDLC_PROTOCOL.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
+    <ClCompile Include="AUTHORIZATION.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="SerialPort.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="Help_functions.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="LLC_unpack.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HDLC_PROTOCOL.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="repack.h">
+    <ClInclude Include="unpack.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="pack.h">
@@ -48,6 +57,21 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Help_functions.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AUTHORIZATION.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SerialPort.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="LLC_pack.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="LLC_unpack.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="LLC.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,8 +9,8 @@
 
 void f_HDLC_pack(uint8_t* buf, uint16_t len)//Размер в байтах
 {
-	HDLC_pocket* p_pack = (HDLC_pocket*)buf;
-	if (len < sizeof(HDLC_pocket))
+	t_HDLC_pocket* p_pack = (t_HDLC_pocket*)buf;
+	if (len < sizeof(t_HDLC_pocket))
 		return;
 
 	p_pack->flag_open = FLAG;
@@ -32,10 +32,10 @@ uint16_t f_HDLC_packData(void* data) {
 
 	switch (*param) {
 	case 'U':
-		return sizeof(HDLC_data_U);	
+		return sizeof(t_HDLC_data_U);	
 	case 'I':
-		return sizeof(HDLC_data_I);
+		return sizeof(t_HDLC_data_I);
 	case 'P':
-		return sizeof(HDLC_data_P);	
+		return sizeof(t_HDLC_data_P);	
 	}
 }
