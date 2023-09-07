@@ -105,7 +105,7 @@ uint8_t f_HDLC_unpack(uint8_t* pack, uint16_t len) // Размер в байта
 }
 
 void f_HDLC_Print_Pack(struct HDLC_get_pocket* pack, uint16_t len) { // TODO print чего? нужно дать более подробное имя
-	uint16_t i = NULL;
+	uint16_t i = 0;
 
 	cout << "флаг =		   " << (int)pack->begin->flag_open << endl;
 	cout << "адрес =		   " << (int)pack->begin->DA_SA[1] << endl;

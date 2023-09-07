@@ -14,11 +14,11 @@ uint8_t f_autorisation_pack(uint8_t* data, uint16_t len) {
 */};
 
 uint8_t f_LLC_pack(uint8_t* data, uint16_t len, uint8_t param) {
-	if (sizeof(t_LLC_inf_request_pack) > len) return 1; //предоставленно недостаточно места
+	if (sizeof(t_LLC_inf_request_pack) > len) return 1; //ГЇГ°ГҐГ¤Г®Г±ГІГ ГўГ«ГҐГ­Г­Г® Г­ГҐГ¤Г®Г±ГІГ ГІГ®Г·Г­Г® Г¬ГҐГ±ГІГ 
 	t_LLC_inf_request_pack* pack = (t_LLC_inf_request_pack*)data;
 	pack->receiver = RECEIVER;
 	pack->source = COMMAND;
-	pack->соntrol = CONTROL;
+	pack->control = CONTROL;
 	pack->tag = GET_request;
 	pack->reserv[0] = { RES_0 };
 	pack->reserv[1] = { RES_1 };
@@ -99,7 +99,7 @@ uint8_t f_LLC_pack(uint8_t* data, uint16_t len, uint8_t param) {
 		}
 		break;
 	default:
-		return 1;//неизвестный тип данных
+		return 1;//Г­ГҐГЁГ§ГўГҐГ±ГІГ­Г»Г© ГІГЁГЇ Г¤Г Г­Г­Г»Гµ
 	}
 	return 0;
 */

@@ -7,7 +7,7 @@ using namespace std;
 HANDLE hSerial;
 
 uint8_t ConfigCOM() { // TODO для чего тут символ "L"?
-    LPCTSTR sPortName = L"COM4";
+    LPCTSTR sPortName = "COM4";
     hSerial = ::CreateFile(sPortName, GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
 
     if (hSerial == INVALID_HANDLE_VALUE)
