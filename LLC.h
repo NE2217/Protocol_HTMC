@@ -9,12 +9,19 @@
 #define COMMAND			0xE6
 #define RESULT			0xE7
 #define CONTROL			0
+#define CLASS			0x3
+#define ATRIBUT			0x2
 
 #define GET_request 	0xC0
 #define GET_response 	0xC4
 
+#define RES_0			0x01
+#define RES_1			0x40
+#define RES_2			0x00
+
 #define LEN_FLOAT32		4
 
+#define LEN_OBIS		4
 
 //OBIS-коды
 static uint8_t OBIS_VOLTAGE_A[] = { 1,0,32,7,0,255 };//LAST_REQUEST =  1

@@ -42,6 +42,9 @@
     <ClCompile Include="LLC_unpack.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
+    <ClCompile Include="LLC_pack.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HDLC_PROTOCOL.h">

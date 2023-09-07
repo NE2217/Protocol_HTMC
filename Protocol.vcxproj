@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="HDLC_t.cpp" />
     <ClCompile Include="Help_functions.cpp" />
+    <ClCompile Include="LLC_pack.cpp" />
     <ClCompile Include="LLC_unpack.cpp" />
     <ClCompile Include="unpack.cpp" />
     <ClCompile Include="pack.cpp" />
