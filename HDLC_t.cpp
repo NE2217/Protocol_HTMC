@@ -4,7 +4,7 @@
 #include <stdbool.h> 
 #include <stdint.h>
 #include <iostream>
-#include "unpack.h"
+#include "HDLC_PROTOCOL.h"
 
 #include "AUTHORIZATION.h"
 //#include "Help_functions.h"
@@ -89,28 +89,19 @@ int main() {
 	
 	setlocale(LC_ALL, "ru_RU.utf8");
 
-//	f_HDLC_pack(buf, sizeof(buf));
-
-	/*pack->data.point = pack->data.point + 100;
-	*pack->data.point = 10;
-	*(pack->data.point+1) = 15;*/
-
-	x = 0x1709;
-	y = 0;
-	
-	//for(x,y)
-			
-	// check last two bytes before the last 7E
-	//uint16_t expected = buf[size - 2];
-	//expected = (expected << 8) + buf[size - 3];
-	
-	//cout << "ТЕСТ РАЗВАРОТА (0x917)= " << hex << (int) rotate(x,8) /*pppfcs16(0x8408, TTT, 7 )*/ << dec << endl;
-
-	//cout << "ТЕСТ CRC (0x0917,0x1709) = 0x" << hex << (int)CRC_16(PPPINITFCS16, TTT, 6) << dec << endl;
-
-	ERROR_repack = f_HDLC_unpack(buf, sizeof(buf));
-	cout << endl << endl;
-
+//СВЯЗЬ
+	t_connect_data connect = {0};
+	*connect.max_cadr_reception_data = 0x0400;
+	connect.max_cadr_reception_len = 2;
+	*connect.max_cadr_transmission_data = 0x0400;
+	connect.max_cadr_transmission_len = 2;
+	*connect.max_window_reception_data = 0x00000001;
+	connect.max_window_reception_len = 4;
+	*connect.max_window_transmission_data = 0x00000001;
+	connect.max_window_transmission_len = 4;
+	f_connect_pack(buf, sizeof(buf), connect);
+	f_HDLC_pack
+	/*
 //	cout << "ЗАПРОС 1" << endl << "размер сообщения = " << (int)f_HDLC_CalcPackSize(buf_test) << endl;
 	cout << "ERROR= " << (int)f_HDLC_unpack(buf_test, sizeof(buf_test)) << endl; // TODO длину указывай как sizeof(buf_test)
 	ERROR_repack=f_HDLC_unpack(buf_test, sizeof(buf_test));
@@ -131,9 +122,8 @@ int main() {
 	ERROR_repack = f_HDLC_unpack(buf_test_3, sizeof(buf_test_2));
 	cout << endl << endl;
 	//f_HDLC_Print(&get_pack);
+*/	
+	//authorization(buf_regist, sizeof(buf_regist));
 	
-	authorization(buf_regist, sizeof(buf_regist));
-	
-	//cout << sizeof(get_1) << endl;
 	return 0;
 }

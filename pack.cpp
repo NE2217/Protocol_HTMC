@@ -7,13 +7,16 @@
 //	return;
 //}
 
-void f_HDLC_pack(uint8_t* buf, uint16_t len)//Размер в байтах
-{
-	t_HDLC_pocket* p_pack = (t_HDLC_pocket*)buf;
-	if (len < sizeof(t_HDLC_pocket))
-		return;
 
-	p_pack->flag_open = FLAG;
+
+void f_HDLC_pack(uint8_t* buf, uint16_t len, uint8_t data, uint8_t len_data)//Размер в байтах
+{
+	HDLC_get_pocket* p_pack = (HDLC_get_pocket*)buf;
+
+	p_pack->begin->flag_open = FLAG;
+	p_pack->begin->DA_SA = ;
+	p_pack->begin->control = CONTROL;
+	p_pack->begin. = CONTROL;
 	p_pack->addr = 21;
 	p_pack->control = 112;
 
