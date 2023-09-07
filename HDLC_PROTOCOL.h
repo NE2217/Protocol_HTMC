@@ -1,4 +1,3 @@
-#pragma once
 #ifndef HDLC_PROTOCOL_H
 #define HDLC_PROTOCOL_H
 

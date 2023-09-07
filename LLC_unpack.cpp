@@ -27,7 +27,7 @@ extern uint8_t LAST_REQUEST=0;
 uint8_t unpack_LLC(uint8_t* data) {
 	t_LLC* llc = (t_LLC*)data;
 	if (llc->receiver == RECEIVER) {
-		if (llc->соntrol == RECEIVER)
+		if (llc->control == RECEIVER)
 		{
 			switch (llc->source) {
 			case COMMAND:

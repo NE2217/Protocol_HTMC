@@ -5,9 +5,10 @@
 #include <iostream>
 
 #include <assert.h>
+#include "string.h"
 
 uint16_t swap(uint8_t* buf, uint16_t len) {
-    uint16_t rev = NULL; // TODO NULL используется для указателей. нужно - 0
+    uint16_t rev = 0; // TODO NULL используется для указателей. нужно - 0
     for (int i = 0; i < 2; i++) {
         rev = (rev << 8) + buf[i];
     };

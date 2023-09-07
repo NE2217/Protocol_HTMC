@@ -1,7 +1,17 @@
 #include <iostream>
 #include <stdint.h>
 #include <assert.h>
+#include <string>
 #include"LLC.h"
+
+uint8_t f_autorisation_pack(uint8_t* data, uint16_t len) {
+	/*
+#define MAX_CADR_TRANSMISSION_ID	0x05
+#define MAX_CADR_RECEPTION_ID		0x06
+#define MAX_WINDOW_TRANSMISSION_ID	0x07
+#define MAX_WINDOW_RECEPTION_ID		0x08
+
+*/};
 
 uint8_t f_LLC_pack(uint8_t* data, uint16_t len, uint8_t param) {
 	if (sizeof(t_LLC_inf_request_pack) > len) return 1; //предоставленно недостаточно места
@@ -14,8 +24,13 @@ uint8_t f_LLC_pack(uint8_t* data, uint16_t len, uint8_t param) {
 	pack->reserv[1] = { RES_1 };
 	pack->reserv[2] = { RES_2 };
 	pack->clas = CLASS;
+	memcpy(pack->param, OBIS[param], LEN_OBIS);
 	pack->atr = ATRIBUT;
 
+	LAST_REQUEST = param;
+
+	
+/*
 	switch (LAST_REQUEST)
 	{
 	case 1:
@@ -87,4 +102,5 @@ uint8_t f_LLC_pack(uint8_t* data, uint16_t len, uint8_t param) {
 		return 1;//неизвестный тип данных
 	}
 	return 0;
+*/
 }

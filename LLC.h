@@ -15,14 +15,21 @@
 #define GET_request 	0xC0
 #define GET_response 	0xC4
 
-#define LEN_FLOAT32		4 // TODO sizeof(float32)
+#define LEN_FLOAT32		sizeof(float32) // TODO sizeof(float32)
 #define RES_0			0x01
 #define RES_1			0x40
 #define RES_2			0x00
 
 #define LEN_FLOAT32		4
 
-#define LEN_OBIS		4
+#define LEN_OBIS		6
+
+//параметры калибровки параметров связи
+#define GROUP_ID					0x8180
+#define MAX_CADR_TRANSMISSION_ID	0x05
+#define MAX_CADR_RECEPTION_ID		0x06
+#define MAX_WINDOW_TRANSMISSION_ID	0x07
+#define MAX_WINDOW_RECEPTION_ID		0x08
 
 //OBIS-коды
 static uint8_t OBIS_VOLTAGE_A[] = { 1,0,32,7,0,255 };//LAST_REQUEST =  1
@@ -41,6 +48,10 @@ static uint8_t OBIS_ENERGY_ACTIVE_IMPORT[] = { 1,0,1,8,0,255 };//LAST_REQUEST = 
 static uint8_t OBIS_ENERGY_ACTIVE_EXPORT[] = { 1,0,2,8,0,255 };//LAST_REQUEST =  11
 static uint8_t OBIS_ENERGY_REACTIVE_IMPORT[] = { 1,0,3,8,0,255 };//LAST_REQUEST =  12
 static uint8_t OBIS_ENERGY_REACTIVE_EXPORT[] = { 1,0,4,8,0,255 };//LAST_REQUEST =  13
+
+static uint8_t* OBIS[] = { OBIS_VOLTAGE_A, OBIS_VOLTAGE_B, OBIS_VOLTAGE_C, OBIS_CURRENT_A, OBIS_CURRENT_B, OBIS_CURRENT_C,
+							OBIS_POWER_A, OBIS_POWER_B, OBIS_POWER_C, OBIS_ENERGY_ACTIVE_IMPORT, OBIS_ENERGY_ACTIVE_EXPORT,
+							OBIS_ENERGY_REACTIVE_IMPORT, OBIS_ENERGY_REACTIVE_EXPORT };
 
 typedef struct {
 	uint8_t type;
@@ -67,11 +78,11 @@ extern t_param_inf energy_reactive_import;
 extern t_param_inf energy_reactive_export;
 
 extern uint8_t LAST_REQUEST;
-// TODO похоже, что в слове control первые два символа "co" написаны русскими буквами
+// TODO похоже, что в слове control первые два символа "co" написаны русскими буквами (переписал)
 typedef struct{
 	uint8_t receiver;
 	uint8_t source;
-	uint8_t соntrol;
+	uint8_t control;
 	uint8_t tag;
 }t_LLC;
 
