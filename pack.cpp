@@ -8,7 +8,7 @@
 //}
 
 
-
+/*
 void f_HDLC_pack(uint8_t* buf, uint16_t len, uint8_t data, uint8_t len_data)//Размер в байтах
 {
 	HDLC_get_pocket* p_pack = (HDLC_get_pocket*)buf;
@@ -28,6 +28,7 @@ void f_HDLC_pack(uint8_t* buf, uint16_t len, uint8_t data, uint8_t len_data)//Р
 
 	return;
 }
+*/
 
 uint16_t f_HDLC_packData(void* data) {
 	

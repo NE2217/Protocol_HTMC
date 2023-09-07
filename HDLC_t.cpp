@@ -100,7 +100,7 @@ int main() {
 	*connect.max_window_transmission_data = 0x00000001;
 	connect.max_window_transmission_len = 4;
 	f_connect_pack(buf, sizeof(buf), connect);
-	f_HDLC_pack
+	
 	/*
 //	cout << "ЗАПРОС 1" << endl << "размер сообщения = " << (int)f_HDLC_CalcPackSize(buf_test) << endl;
 	cout << "ERROR= " << (int)f_HDLC_unpack(buf_test, sizeof(buf_test)) << endl; // TODO длину указывай как sizeof(buf_test)
