@@ -4,7 +4,7 @@
 #include"LLC.h"
 //#include"h_LLC_unpack.h"
 
-//Хранение значений
+//РҐСЂР°РЅРµРЅРёРµ Р·РЅР°С‡РµРЅРёР№
 t_param_inf voltage_A = { 0 };
 t_param_inf voltage_B = { 0 };
 t_param_inf voltage_C = { 0 };
@@ -12,7 +12,7 @@ t_param_inf voltage_C = { 0 };
 t_param_inf current_A = { 0 };
 t_param_inf current_B = { 0 };
 t_param_inf current_C = { 0 };
-//полная мощьность по фазам
+//РїРѕР»РЅР°СЏ РјРѕС‰СЊРЅРѕСЃС‚СЊ РїРѕ С„Р°Р·Р°Рј
 t_param_inf power_A = { 0 };
 t_param_inf power_B = { 0 };
 t_param_inf power_C = { 0 };
@@ -27,30 +27,30 @@ extern uint8_t LAST_REQUEST=0;
 uint8_t unpack_LLC(uint8_t* data) {
 	t_LLC* llc = (t_LLC*)data;
 	if (llc->receiver == RECEIVER) {
-		if (llc->соntrol == RECEIVER)
+		if (llc->СЃРѕntrol == RECEIVER)
 		{
 			switch (llc->source) {
 			case COMMAND:
-				return 3; //получен запрос
+				return 3; //РїРѕР»СѓС‡РµРЅ Р·Р°РїСЂРѕСЃ
 			case RESULT:
 				return 0;
 			default:
-				return 4; //получатель не совпал
+				return 4; //РїРѕР»СѓС‡Р°С‚РµР»СЊ РЅРµ СЃРѕРІРїР°Р»
 			}
 		}
-		else return 2; //контрольный байт не совпал	
+		else return 2; //РєРѕРЅС‚СЂРѕР»СЊРЅС‹Р№ Р±Р°Р№С‚ РЅРµ СЃРѕРІРїР°Р»	
 	}
-	else return 1; //отправитель не совпал
+	else return 1; //РѕС‚РїСЂР°РІРёС‚РµР»СЊ РЅРµ СЃРѕРІРїР°Р»
 }
 
 uint8_t unpack_LLC_inf(uint8_t* data) {
 	t_LLC_inf* llc_inf = (t_LLC_inf*)data;
 	switch(llc_inf->tag) {
 	case GET_request:
-		return 1; //получен запрос
+		return 1; //РїРѕР»СѓС‡РµРЅ Р·Р°РїСЂРѕСЃ
 	case GET_response:
-		return 0; //получен ответ на запрос		
-	default: return 2; //тэг не совпал
+		return 0; //РїРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚ РЅР° Р·Р°РїСЂРѕСЃ		
+	default: return 2; //С‚СЌРі РЅРµ СЃРѕРІРїР°Р»
 	}
 }
 
@@ -137,7 +137,7 @@ uint8_t unpack_LLC_inf_response(uint8_t* data) {
 		}
 		break;
 	default:
-		return 1;//неизвестный тип данных
+		return 1;//РЅРµРёР·РІРµСЃС‚РЅС‹Р№ С‚РёРї РґР°РЅРЅС‹С…
 	}
 	return 0;
 }

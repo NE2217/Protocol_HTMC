@@ -6,8 +6,8 @@
 
 #include <assert.h>
 
-uint16_t swap(uint8_t* buf, uint16_t len) { // TODO swap - менять, swipe - махать
-    uint16_t rev = NULL;
+uint16_t swap(uint8_t* buf, uint16_t len) {
+    uint16_t rev = NULL; // TODO NULL РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ СѓРєР°Р·Р°С‚РµР»РµР№. РЅСѓР¶РЅРѕ - 0
     for (int i = 0; i < 2; i++) {
         rev = (rev << 8) + buf[i];
     };
@@ -16,7 +16,7 @@ uint16_t swap(uint8_t* buf, uint16_t len) { // TODO swap - менять, swipe - махат
 
 bool ComparringArrays(void* a, void* b) {
 
-    if ((sizeof(a) == sizeof(b)) && !(memcmp(a, b, sizeof(a)))) return true;
+    if ((sizeof(a) == sizeof(b)) && !(memcmp(a, b, sizeof(a)))) return true; // TODO РґР»СЏ memcmp #include "string.h"
 
     else return false;
 }

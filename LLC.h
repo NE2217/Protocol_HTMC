@@ -15,6 +15,7 @@
 #define GET_request 	0xC0
 #define GET_response 	0xC4
 
+#define LEN_FLOAT32		4 // TODO sizeof(float32)
 #define RES_0			0x01
 #define RES_1			0x40
 #define RES_2			0x00
@@ -23,7 +24,7 @@
 
 #define LEN_OBIS		4
 
-//OBIS-коды
+//OBIS-РєРѕРґС‹
 static uint8_t OBIS_VOLTAGE_A[] = { 1,0,32,7,0,255 };//LAST_REQUEST =  1
 static uint8_t OBIS_VOLTAGE_B[] = { 1,0,52,7,0,255 };//LAST_REQUEST =  2
 static uint8_t OBIS_VOLTAGE_C[] = { 1,0,72,7,0,255 };//LAST_REQUEST =  3
@@ -31,7 +32,7 @@ static uint8_t OBIS_VOLTAGE_C[] = { 1,0,72,7,0,255 };//LAST_REQUEST =  3
 static uint8_t OBIS_CURRENT_A[] = { 1,0,31,7,0,255 };//LAST_REQUEST =  4
 static uint8_t OBIS_CURRENT_B[] = { 1,0,51,7,0,255 };//LAST_REQUEST =  5
 static uint8_t OBIS_CURRENT_C[] = { 1,0,71,7,0,255 };//LAST_REQUEST =  6
-//полная мощьность по фазам
+//РїРѕР»РЅР°СЏ РјРѕС‰СЊРЅРѕСЃС‚СЊ РїРѕ С„Р°Р·Р°Рј
 static uint8_t OBIS_POWER_A[] = { 1,0,29,7,0,255 };//LAST_REQUEST =  7
 static uint8_t OBIS_POWER_B[] = { 1,0,49,7,0,255 };//LAST_REQUEST =  8
 static uint8_t OBIS_POWER_C[] = { 1,0,69,7,0,255 };//LAST_REQUEST =  9
@@ -47,7 +48,7 @@ typedef struct {
 	uint8_t data[10];
 }t_param_inf;
 
-//хранение данных
+//С…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С…
 extern t_param_inf voltage_A;
 extern t_param_inf voltage_B;
 extern t_param_inf voltage_C;
@@ -55,7 +56,7 @@ extern t_param_inf voltage_C;
 extern t_param_inf current_A;
 extern t_param_inf current_B;
 extern t_param_inf current_C;
-//полная мощьность по фазам
+//РїРѕР»РЅР°СЏ РјРѕС‰СЊРЅРѕСЃС‚СЊ РїРѕ С„Р°Р·Р°Рј
 extern t_param_inf power_A;
 extern t_param_inf power_B;
 extern t_param_inf power_C;
@@ -66,11 +67,11 @@ extern t_param_inf energy_reactive_import;
 extern t_param_inf energy_reactive_export;
 
 extern uint8_t LAST_REQUEST;
-
+// TODO РїРѕС…РѕР¶Рµ, С‡С‚Рѕ РІ СЃР»РѕРІРµ control РїРµСЂРІС‹Рµ РґРІР° СЃРёРјРІРѕР»Р° "co" РЅР°РїРёСЃР°РЅС‹ СЂСѓСЃСЃРєРёРјРё Р±СѓРєРІР°РјРё
 typedef struct{
 	uint8_t receiver;
 	uint8_t source;
-	uint8_t соntrol;
+	uint8_t СЃРѕntrol;
 	uint8_t tag;
 }t_LLC;
 
