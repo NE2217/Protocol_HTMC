@@ -117,7 +117,7 @@ void f_HDLC_Print_Pack(struct HDLC_get_pocket* pack, uint16_t len) { // TODO pri
 	cout << "CRC =		   " << (int)pack->end->FCS << endl;
 	cout << "флаг =		   " << (int)pack->end->flag_close << endl << endl;
 
-}
+}//3
 
 void f_HDLC_UunpackData(void) { // TODO название не совпадает с назначением функции
 	if (unpack_LLC(dataBuf) == 0) {
