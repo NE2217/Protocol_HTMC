@@ -5,6 +5,17 @@
 #include <iostream>;
 
 typedef struct {
+	uint8_t* max_cadr_transmission_data;
+	uint8_t max_cadr_transmission_len;
+	uint8_t* max_cadr_reception_data;
+	uint8_t max_cadr_reception_len;
+	uint8_t* max_window_transmission_data;
+	uint8_t max_window_transmission_len;
+	uint8_t* max_window_reception_data;
+	uint8_t max_window_reception_len;
+}t_connect_data;
+
+typedef struct {
 	uint8_t ID;
 	uint8_t len;
 	uint8_t* data;
@@ -29,6 +40,17 @@ typedef struct {
 	uint8_t param[6];
 	uint8_t atr;
 }t_LLC_inf_request_pack;
+
+typedef struct {
+	uint8_t receiver;
+	uint8_t source;
+	uint8_t ñîntrol;
+	uint8_t reserv_1[30];
+	uint8_t pasword[8];
+	uint8_t reserv_2[18];
+}t_LLC_pasword_pack;
+
+uint8_t f_connect_pack(uint8_t* buf, uint16_t len, t_connect_data data);
 
 #endif // !_LLC_PACK_
 

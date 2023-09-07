@@ -138,11 +138,11 @@ typedef struct {
 typedef struct  {
 	uint16_t FCS;
 	uint8_t flag_close;
-}t_HDLC_pocket_end;
+}t_HDLC_packet_end;
 
 typedef struct HDLC_get_pocket { // TODO не вижу смысла в этой структуре данных. Указатели можно использовать отдельно
 	t_HDLC_packet_begin *begin;
-	t_HDLC_pocket_end *end;
+	t_HDLC_packet_end *end;
 };
 
 typedef struct t_HDLC_pocket {

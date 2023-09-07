@@ -24,6 +24,18 @@ t_param_inf energy_reactive_export = { 0 };
 
 extern uint8_t LAST_REQUEST=0;
 
+uint8_t f_pasword_unpack(uint8_t* request, uint16_t request_len, uint8_t* response, uint16_t response_len) {
+	if (request_len != response_len) return 1;					//длинна ответа несоответствует длинне запроса
+	if (memcmp(request, response, request_len) != 0) return 2;	//запрос не равен ответу
+	return 0;
+};
+
+uint8_t f_connect_unpack(uint8_t* request, uint16_t request_len, uint8_t* response, uint16_t response_len) {
+	if (request_len != response_len) return 1;					//длинна ответа несоответствует длинне запроса
+	if (memcmp(request, response, request_len) != 0) return 2;	//запрос не равен ответу
+	return 0;
+};
+
 uint8_t unpack_LLC(uint8_t* data) {
 	t_LLC* llc = (t_LLC*)data;
 	if (llc->receiver == RECEIVER) {

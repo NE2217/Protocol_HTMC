@@ -8,8 +8,6 @@
 #include <assert.h>
 
 uint16_t swap(uint8_t* buf, uint16_t len);  // TODO swap - менять, swipe - махать
-
-
 bool ComparringArrays(void* a, void* b);
 
 #endif // _HELP_

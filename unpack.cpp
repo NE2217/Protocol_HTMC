@@ -37,7 +37,7 @@ uint16_t f_HDLC_CalcPackSize(uint8_t* data, uint16_t data_len) { // рассчи
 // TODO repack - перепаковать, больше подойдёт unpack - распаковать
 uint8_t f_HDLC_unpack(uint8_t* pack, uint16_t len) // Размер в байтах
  {
-	HDLC_get_pocket get_pack = { NULL };
+	HDLC_get_pocket get_pack = { 0 };
 	// TODO не используется. нужно убрать
 	//HDLC_pocket_begin* p_pack_1 = (HDLC_pocket_begin*)pack;
 
@@ -70,7 +70,7 @@ uint8_t f_HDLC_unpack(uint8_t* pack, uint16_t len) // Размер в байта
 		return 2; //HCS не совпал
 	}
 
-	get_pack.end = (t_HDLC_pocket_end*)(&pack[f_HDLC_CalcPackSize(pack, len) - 3]);
+	get_pack.end = (t_HDLC_packet_end*)(&pack[f_HDLC_CalcPackSize(pack, len) - 3]);
 	
 	t_format form; //? TODO не нужно делать  = { NULL }. И объяви указатель которуму укажешь на адрес
 	form.point = swap((uint8_t*)&get_pack.begin->format.point, 2);

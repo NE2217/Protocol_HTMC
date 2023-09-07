@@ -4,14 +4,36 @@
 #include <string>
 #include"LLC.h"
 
-uint8_t f_autorisation_pack(uint8_t* data, uint16_t len) {
-	/*
-#define MAX_CADR_TRANSMISSION_ID	0x05
-#define MAX_CADR_RECEPTION_ID		0x06
-#define MAX_WINDOW_TRANSMISSION_ID	0x07
-#define MAX_WINDOW_RECEPTION_ID		0x08
+uint8_t f_pasword_pack(uint8_t* buf, uint16_t len, uint8_t* pasword,uint16_t len_password) {
+	if (sizeof(t_LLC_pasword_pack) < len) return 1;//предоставленно недостаточно места
+	t_LLC_pasword_pack* pack = (t_LLC_pasword_pack*)buf;
+	pack->receiver = RECEIVER;
+	pack->source = COMMAND;
+	pack->соntrol = CONTROL;
+	memcpy(pack->reserv_1, PASWORD_RESERV_1, sizeof(PASWORD_RESERV_1));
+	memcpy(pack->pasword, pasword, len);
+	memcpy(pack->reserv_2, PASWORD_RESERV_2, sizeof(PASWORD_RESERV_2));
+}
 
-*/};
+uint8_t f_connect_pack(uint8_t* buf, uint16_t len, t_connect_data data) {
+	if (sizeof(t_connect) > len) return 1; //предоставленно недостаточно места
+	t_connect* connect = (t_connect*)buf;
+	connect->group_id = GROUP_ID;
+	connect->len_group_id = data.max_cadr_reception_len+data.max_cadr_transmission_len+data.max_window_reception_len+data.max_window_transmission_len+ID_SIZE;
+	connect->max_cadr_reception.ID = MAX_CADR_RECEPTION_ID;
+	connect->max_cadr_reception.data = data.max_cadr_reception_data;
+	connect->max_cadr_reception.len = data.max_cadr_reception_len;
+	connect->max_cadr_transmission.ID = MAX_CADR_TRANSMISSION_ID;
+	connect->max_cadr_transmission.data = data.max_cadr_transmission_data;
+	connect->max_cadr_transmission.len = data.max_cadr_transmission_len;
+	connect->max_window_reception.ID = MAX_WINDOW_RECEPTION_ID;
+	connect->max_window_reception.data = data.max_window_reception_data;
+	connect->max_window_reception.len= data.max_window_reception_len;
+	connect->max_window_transmission.ID = MAX_WINDOW_TRANSMISSION_ID;
+	connect->max_window_transmission.data = data.max_window_transmission_data;
+	connect->max_window_transmission.len = data.max_window_transmission_len;
+	return 0;
+}
 
 uint8_t f_LLC_pack(uint8_t* data, uint16_t len, uint8_t param) {
 	if (sizeof(t_LLC_inf_request_pack) > len) return 1; //предоставленно недостаточно места
