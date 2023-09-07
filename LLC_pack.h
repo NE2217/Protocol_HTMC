@@ -33,7 +33,7 @@ typedef struct {
 typedef struct {
 	uint8_t receiver;
 	uint8_t source;
-	uint8_t ñîntrol;
+	uint8_t control;
 	uint8_t tag;
 	uint8_t reserv[3];
 	uint8_t clas;
