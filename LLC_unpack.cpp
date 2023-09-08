@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdint.h>
 #include <assert.h>
+#include <string.h>
 #include"LLC.h"
 //#include"h_LLC_unpack.h"
 
@@ -22,7 +23,7 @@ t_param_inf energy_active_export = { 0 };
 t_param_inf energy_reactive_import = { 0 };
 t_param_inf energy_reactive_export = { 0 };
 
-extern uint8_t LAST_REQUEST=0;
+uint8_t LAST_REQUEST = 0;
 
 uint8_t f_pasword_unpack(uint8_t* request, uint16_t request_len, uint8_t* response, uint16_t response_len) {
 	if (request_len != response_len) return 1;					//длинна ответа несоответствует длинне запроса

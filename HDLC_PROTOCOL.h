@@ -85,13 +85,15 @@ union HDLC_control {
 };
 */
 
-union {
+union
+{
 	unsigned char point;
-	struct {
+	struct
+	{
 		unsigned char received_shot : 3;
-		unsigned char tell_bit : 1;
-		unsigned char sent_shot : 3;
-		unsigned char format : 1;
+		unsigned char tell_bit      : 1;
+		unsigned char sent_shot     : 3;
+		unsigned char format        : 1;
 	}win;
 }t_HDLC_control_I;
 
@@ -135,40 +137,43 @@ typedef struct {
 }t_HDLC_packet_begin;
 
 
-typedef struct  {
+typedef struct
+{
 	uint16_t FCS;
 	uint8_t flag_close;
-}t_HDLC_packet_end;
+} t_HDLC_packet_end;
 
-typedef struct HDLC_get_pocket { // TODO не вижу смысла в этой структуре данных. Указатели можно использовать отдельно
+typedef struct
+{
 	t_HDLC_packet_begin *begin;
 	t_HDLC_packet_end *end;
-};
+} t_HDLC_get_packet;
 
-typedef struct t_HDLC_pocket {
+typedef struct
+{
 	uint8_t flag_open;
 	uint8_t addr;
 	uint8_t control;
 	uint8_t data[10];
 	uint16_t CRC;
 	uint8_t flag_close;
-};
+} t_HDLC_pocket;
 
-typedef struct t_HDLC_data_U {
-	uint8_t  param; //U,I,P
-	uint16_t  value;
-};
-
-typedef struct t_HDLC_data_I {
-	uint8_t param; //U,I,P
-	uint8_t value;
-};
-
-typedef struct t_HDLC_data_P {
-	uint8_t param; //U,I,P
-	uint8_t value;
-	uint8_t tupe; //P,Q,S
-};
+//typedef struct t_HDLC_data_U {
+//	uint8_t  param; //U,I,P
+//	uint16_t  value;
+//};
+//
+//typedef struct t_HDLC_data_I {
+//	uint8_t param; //U,I,P
+//	uint8_t value;
+//};
+//
+//typedef struct t_HDLC_data_P {
+//	uint8_t param; //U,I,P
+//	uint8_t value;
+//	uint8_t tupe; //P,Q,S
+//};
 
 #pragma pack(pop)
 

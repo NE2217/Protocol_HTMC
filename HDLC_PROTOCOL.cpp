@@ -7,17 +7,20 @@
 
 using namespace std;
 
-t_control format_read(uint8_t form) {
-	t_control control = {NULL};
+t_control format_read(uint8_t form)
+{
+	t_control control;
 
-	if (form & 1 == 0) {
+	if ( (form & 1) == 0 )
+	{
 		control.R = form >> 5;
 		control.P = form & 1 << 3;
-		control.S = (form >> 1) & 7;//(номер посланного кадра) сдвиг влево на 1 и маскирование 3 последних битов
+		control.S = (form >> 1) & 7;//(пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ) пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 1 пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 3 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	}
-	if (form & 1 << 1 == 0) {
-		control.R = form >> 5;//номер принимаемого кадра
-		control.P = form & 1 << 3;//бит опроса окончания
+	if( (form & (1 << 1)) == 0 )
+	{
+		control.R = form >> 5;//пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+		control.P = form & 1 << 3;//пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		switch (form & 0xF)
 		{
 			case RR :
@@ -35,7 +38,7 @@ t_control format_read(uint8_t form) {
 		}
 	}
 	else {
-		control.P = form & 1 << 3;//бит опроса окончания
+		control.P = form & 1 << 3;//пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		switch (form)
 		{
 			case UI:

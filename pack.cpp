@@ -34,12 +34,15 @@ uint16_t f_HDLC_packData(void* data) {
 	
 	uint8_t* param = (uint8_t*)data;
 
-	switch (*param) {
-	case 'U':
-		return sizeof(t_HDLC_data_U);	
-	case 'I':
-		return sizeof(t_HDLC_data_I);
-	case 'P':
-		return sizeof(t_HDLC_data_P);	
+	switch (*param)
+	{
+//		case 'U':
+//			return sizeof(t_HDLC_data_U);
+//		case 'I':
+//			return sizeof(t_HDLC_data_I);
+//		case 'P':
+//			return sizeof(t_HDLC_data_P);
+		default:
+			return 0;
 	}
 }

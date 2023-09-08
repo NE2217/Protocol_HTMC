@@ -7,7 +7,7 @@ using namespace std;
 HANDLE hSerial;
 
 uint8_t ConfigCOM() { // TODO для чего тут символ "L"?
-    LPCTSTR sPortName = L"COM4";
+    LPCTSTR sPortName = "COM4";
     hSerial = ::CreateFile(sPortName, GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
 
     if (hSerial == INVALID_HANDLE_VALUE)
@@ -61,7 +61,8 @@ int WriteCOM(void* data, uint16_t len)
     DWORD dwSize = len;   // размер этой строки
     DWORD dwBytesWritten;    // тут будет количество собственно переданных байт
 
-    BOOL iRet = WriteFile(hSerial, data, dwSize, &dwBytesWritten, NULL);
+//    BOOL iRet =
+	WriteFile(hSerial, data, dwSize, &dwBytesWritten, NULL);
 
     cout << dwSize << " Bytes in string. " << dwBytesWritten << " Bytes sended. " << endl;
     return 0;
